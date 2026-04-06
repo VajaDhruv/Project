@@ -150,8 +150,6 @@
         await wait(RETRY_DELAY_MS * (attempt + 1));
       }
     }
-
-    throw new Error("Failed to load image.");
   };
 
   const getFailedCount = () => previewGrid.querySelectorAll(".retry-btn").length;
@@ -232,7 +230,7 @@
     setStatus(`Retrying variation ${index + 1}...`, "");
 
     try {
-      const loadedUrl = await loadWithRetry(url, MAX_RETRIES + 1);
+      const loadedUrl = await loadWithRetry(url, MAX_RETRIES);
       card.innerHTML = "";
       card.appendChild(createImageElement(loadedUrl, promptInput.value.trim(), index));
       updateRetryStatus();
