@@ -85,7 +85,7 @@
     new Promise((resolve, reject) => {
       const img = new Image();
       img.onload = () => resolve(src);
-      img.onerror = () => reject(new Error("Unable to load generated image."));
+      img.onerror = () => reject(new Error("Unable to load generated image from API. Please check your connection and try again."));
       img.src = src;
     });
 
