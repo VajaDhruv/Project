@@ -123,17 +123,24 @@
   const preloadImage = (src, timeoutMs = REQUEST_TIMEOUT_MS) =>
     new Promise((resolve, reject) => {
       const img = new Image();
+      const cleanup = () => {
+        img.onload = null;
+        img.onerror = null;
+      };
       const timeout = setTimeout(() => {
+        cleanup();
         img.src = "";
         reject(new Error("Image request timed out."));
       }, timeoutMs);
 
       img.onload = () => {
         clearTimeout(timeout);
+        cleanup();
         resolve(src);
       };
       img.onerror = () => {
         clearTimeout(timeout);
+        cleanup();
         reject(new Error("Unable to load generated image from API. Please check your connection and try again."));
       };
       img.src = src;
@@ -147,7 +154,7 @@
         if (attempt === retries) {
           throw error;
         }
-        await wait(RETRY_DELAY_MS * (attempt + 1));
+        await wait(RETRY_DELAY_MS * 2 ** attempt);
       }
     }
   };
@@ -230,7 +237,7 @@
     setStatus(`Retrying variation ${index + 1}...`, "");
 
     try {
-      const loadedUrl = await loadWithRetry(url, MAX_RETRIES);
+      const loadedUrl = await loadWithRetry(url, 1);
       card.innerHTML = "";
       card.appendChild(createImageElement(loadedUrl, promptInput.value.trim(), index));
       updateRetryStatus();
