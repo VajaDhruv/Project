@@ -13,6 +13,9 @@
   }
 
   const API_BASE = "https://image.pollinations.ai/prompt/";
+  const MIN_DIMENSION = 64;
+  const DEFAULT_DIMENSION = 1024;
+  const MAX_SEED_VALUE = 1000000;
 
   const setStatus = (message, type = "") => {
     statusEl.textContent = message;
@@ -24,8 +27,8 @@
     const width = Number(widthStr);
     const height = Number(heightStr);
 
-    if (!Number.isFinite(width) || !Number.isFinite(height) || width < 64 || height < 64) {
-      return { width: 1024, height: 1024 };
+    if (!Number.isFinite(width) || !Number.isFinite(height) || width < MIN_DIMENSION || height < MIN_DIMENSION) {
+      return { width: DEFAULT_DIMENSION, height: DEFAULT_DIMENSION };
     }
 
     return { width, height };
@@ -44,7 +47,7 @@
     if (seed) {
       params.set("seed", String(seed));
     } else {
-      params.set("seed", String(Math.floor(Math.random() * 1000000)));
+      params.set("seed", String(Math.floor(Math.random() * MAX_SEED_VALUE)));
     }
 
     return `${API_BASE}${encodedPrompt}?${params.toString()}`;
@@ -100,7 +103,7 @@
     try {
       const ratio = ratioInput.value;
       const numericSeed = seedInput && seedInput.value ? Number(seedInput.value) : undefined;
-      const baseSeed = Number.isFinite(numericSeed) ? numericSeed : Math.floor(Math.random() * 999999);
+      const baseSeed = Number.isFinite(numericSeed) ? numericSeed : Math.floor(Math.random() * MAX_SEED_VALUE);
       const urls = [0, 1, 2].map((offset) => createImageURL(prompt, ratio, baseSeed + offset));
 
       await Promise.all(urls.map((u) => preloadImage(u)));

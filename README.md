@@ -11,12 +11,12 @@ A dynamic AI image generator website with a modern 3D visual look.
 - Mouse-reactive 3D card effect
 
 ## Run
-Open `/home/runner/work/Project/Project/index.html` directly in your browser.
+Open `index.html` directly in your browser.
 
 For best compatibility, you can also serve it locally:
 
 ```bash
-cd /home/runner/work/Project/Project
+cd <project-directory>
 python3 -m http.server 8080
 ```
 
