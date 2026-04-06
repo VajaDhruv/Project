@@ -7,7 +7,7 @@ A dynamic AI image generator website with a modern 3D visual look.
 - 3 output variations per prompt
 - Aspect ratio selection (square, landscape, portrait)
 - Optional seed input
-- Live loading and error states
+- Live loading and resilient retry/error states
 - Mouse-reactive 3D card effect
 
 ## Run
