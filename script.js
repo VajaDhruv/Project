@@ -155,7 +155,7 @@
         if (attempt === retries) {
           throw error;
         }
-        await wait(RETRY_DELAY_MS * 2 ** (attempt + 1));
+        await wait(RETRY_DELAY_MS * 2 ** attempt);
       }
     }
   };
