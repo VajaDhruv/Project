@@ -152,10 +152,10 @@
     }
   };
 
-  const getFailedCount = () => previewGrid.querySelectorAll(".retry-btn").length;
+  const getFailedVariationCount = () => previewGrid.querySelectorAll(".retry-btn").length;
 
   const updateRetryStatus = () => {
-    const failedCount = getFailedCount();
+    const failedCount = getFailedVariationCount();
     if (failedCount === 0) {
       setStatus("Done! Your AI images are ready.", "ok");
     } else {
