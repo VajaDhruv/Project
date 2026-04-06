@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Image Generator 3D</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="bg-glow glow-1" aria-hidden="true"></div>
+    <div class="bg-glow glow-2" aria-hidden="true"></div>
+
+    <main class="app-shell" id="tilt-card">
+      <header>
+        <h1>AI Image Generator</h1>
+        <p>Type a prompt and generate unique AI art instantly.</p>
+      </header>
+
+      <form id="generator-form" novalidate>
+        <label for="prompt">Prompt</label>
+        <div class="input-row">
+          <input
+            id="prompt"
+            name="prompt"
+            type="text"
+            placeholder="e.g. futuristic floating city at sunset, ultra detailed"
+            autocomplete="off"
+            required
+            minlength="3"
+          />
+          <button id="generate-btn" type="submit">Generate</button>
+        </div>
+      </form>
+
+      <div class="controls-row">
+        <label for="ratio">Aspect</label>
+        <select id="ratio" name="ratio">
+          <option value="1024x1024">Square</option>
+          <option value="1024x768">Landscape</option>
+          <option value="768x1024">Portrait</option>
+        </select>
+
+        <label for="seed">Seed (optional)</label>
+        <input id="seed" name="seed" type="number" min="0" placeholder="Random" />
+      </div>
+
+      <p id="status" class="status" aria-live="polite"></p>
+
+      <section class="preview-grid" id="preview-grid">
+        <article class="image-card">
+          <div class="skeleton"></div>
+        </article>
+        <article class="image-card">
+          <div class="skeleton"></div>
+        </article>
+        <article class="image-card">
+          <div class="skeleton"></div>
+        </article>
+      </section>
+    </main>
+
+    <script src="./script.js" defer></script>
+  </body>
+  </html>
