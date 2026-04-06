@@ -19,6 +19,7 @@
   const IMAGE_COUNT = 3;
   const REQUEST_TIMEOUT_MS = 25000;
   const MAX_RETRIES = 2;
+  const MAX_INDIVIDUAL_RETRIES = 1;
   const RETRY_DELAY_MS = 700;
 
   const setStatus = (message, type = "") => {
@@ -154,7 +155,7 @@
         if (attempt === retries) {
           throw error;
         }
-        await wait(RETRY_DELAY_MS * 2 ** attempt);
+        await wait(RETRY_DELAY_MS * 2 ** (attempt + 1));
       }
     }
   };
@@ -237,7 +238,7 @@
     setStatus(`Retrying variation ${index + 1}...`, "");
 
     try {
-      const loadedUrl = await loadWithRetry(url, 1);
+      const loadedUrl = await loadWithRetry(url, MAX_INDIVIDUAL_RETRIES);
       card.innerHTML = "";
       card.appendChild(createImageElement(loadedUrl, promptInput.value.trim(), index));
       updateRetryStatus();
